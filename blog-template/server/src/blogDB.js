@@ -1,51 +1,52 @@
 module.exports = (mongoose) => {
-  const kittenSchema = new mongoose.Schema({
-    name: String
+  const blogSchema = new mongoose.Schema({
+    title: String,
+    description: String,
+    date: Date,
+    like: [],
+    comments: [{ comment: String, date: Date }]
   });
 
-  const kittenModel = mongoose.model('kitten', kittenSchema);
+  const blogModel = mongoose.model('blog', blogSchema);
 
-  async function getKittens() {
+  async function getBlogs() {
     try {
-      return await kittenModel.find();
+      return await blogModel.find();
     } catch (error) {
-      console.error("getKitten:", error.message);
+      console.error("getBlog:", error.message);
       return {};
     }
   }
 
-  async function getKitten(id) {
+  async function getBlog(id) {
     try {
-      return await kittenModel.findById(id);
+      return await blogModel.findById(id);
     } catch (error) {
-      console.error("getKitten:", error.message);
+      console.error("getBlog:", error.message);
       return {};
     }
   }
 
-  async function createKitten(text) {
-    let kitten = new kittenModel({name: text});
-    return kitten.save();
+  async function createBlog(title, desc, date) {
+    const blog = new kittenModel({ title: title, description: desc, date: date });
+    return blog.save();
   }
 
   async function bootstrap(count = 10) {
-    let l = (await getKittens()).length;
-    console.log("Kitten collection size:", l);
+    let l = (await getBlogs()).length;
+    console.log("Blog collection size:", l);
 
     if (l === 0) {
-      let promises = [];
-      for (let i = 0; i < count; i++) {
-        let newKitten = new kittenModel({name: `Kitten number ${i}`});
-        promises.push(newKitten.save());
-      }
-      return Promise.all(promises);
+      this.createBlog("blog 1", "desc 1", date.Date);
+      this.createBlog("blog 2", "desc 2", date.Date);
+      this.createBlog("blog 3", "desc 3", date.Date);
     }
   }
 
   return {
-    getKittens,
-    getKitten,
-    createKitten,
+    getBlogs,
+    getBlog,
+    createBlog,
     bootstrap
   }
 }

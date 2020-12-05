@@ -6,7 +6,7 @@ function App() {
   
   useEffect(() => {
     async function getData() {
-      const url = `${API_URL}/kittens`;
+      const url = `${API_URL}/blogs`;
       const response = await fetch(url);
       const data = await response.json();
       setData(data);
@@ -16,11 +16,8 @@ function App() {
 
   return (
     <>
-      <h1>Kitten App!</h1>
-      <p>Data from server:</p> 
-      {data.map(kitten => {
-        return <p key={kitten._id}>{kitten.name} ({kitten._id})</p>;
-      })}
+      <h1>Blog App!</h1>
+      <p>let's get some data</p>
     </>
   );
 }
