@@ -28,18 +28,18 @@ module.exports = (mongoose) => {
   }
 
   async function createBlog(title, desc, date) {
-    const blog = new kittenModel({ title: title, description: desc, date: date });
+    const blog = new blogModel({ title: title, description: desc, date: date });
     return blog.save();
   }
 
-  async function bootstrap(count = 10) {
+  async function bootstrap() {
     let l = (await getBlogs()).length;
     console.log("Blog collection size:", l);
 
     if (l === 0) {
-      this.createBlog("blog 1", "desc 1", date.Date);
-      this.createBlog("blog 2", "desc 2", date.Date);
-      this.createBlog("blog 3", "desc 3", date.Date);
+      this.createBlog("blog 1", "desc 1", Date.now());
+      this.createBlog("blog 2", "desc 2", Date.now());
+      this.createBlog("blog 3", "desc 3", Date.now());
     }
   }
 
